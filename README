@@ -1,6 +1,12 @@
 Exercise 1 Workshop In Communication Networks - Benchmarking Throughput
 Authors: Yosef Edery and Leon Gershko
 
+To use on linux
+Open terminal and run following lines:
+make
+server
+client 127.0.0.1
+
 The goal of the implemented code was to measure point-to-point (unidirectional) throughput between two machines,
 for an exponential series of message sizes, ranging from 1 byte to 1MB.
 The implemented code had a server and a client component, both written in C++, that shared some code.
