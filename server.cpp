@@ -1,0 +1,80 @@
+#include <iostream>
+#include <cstring>
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include "MACROS.h"
+#define ERROR_MSG_BIND "Error binding socket"
+#define ERROR_MSG_LISTEN "Error listening on socket"
+#define ERROR_MSG_RECV "Error receiving message"
+#define ERROR_MSG_ACCEPT_FAILURE "Socket accept error"
+#define MAX_CLIENTS_LISTENED 1
+
+int get_connection (int s)
+{
+    int t = accept (s, NULL, NULL); /* socket of connection */
+    if (t < 0) {
+        printErrorAndExit(ERROR_MSG_ACCEPT_FAILURE);
+    }
+    return t;
+}
+
+int main() {
+    sockaddr_in serverAddress;
+    std::memset(&serverAddress, 0, sizeof(serverAddress));
+    serverAddress.sin_family = AF_INET;
+    serverAddress.sin_addr.s_addr = INADDR_ANY;
+    serverAddress.sin_port = htons(DEFAULT_PORT);
+    int mySocket = socket(AF_INET, SOCK_STREAM, 0);
+    if (mySocket < 0) {
+        std::cerr << "Error creating socket\n";
+        return 1;
+    }
+
+    if (bind(mySocket, (sockaddr*) &serverAddress, sizeof(serverAddress)) == -1) {
+        printErrorAndExit(ERROR_MSG_BIND);
+        return 1;
+    }
+
+    if (listen(mySocket, MAX_CLIENTS_LISTENED) == -1) {
+        printErrorAndExit(ERROR_MSG_LISTEN);
+        return 1;
+    }
+
+    while (true) {
+        int client_sock = get_connection(mySocket);
+        if (client_sock == -1) {
+            printErrorAndExit(ERROR_MSG_CONNECTION_FAILURE);
+            continue;
+        }
+
+        for (int message_size = FIRST_MESSAGE_SIZE; message_size <= MB_1; message_size *= INCREMENT_MESSAGE_FACTOR) {
+            char* message = new char[message_size];
+
+            for (int  i = 0; i < K_NUM_MESSAGES; ++i) {
+                int curr_recv = recv(client_sock, message, message_size, 0);
+                std::cout << curr_recv;
+                if (curr_recv > message_size) {
+                    printErrorAndExit(ERROR_MSG_RECV);
+                    delete[] message;
+                    close(client_sock);
+                    return 1;
+                }
+            }
+            char ack = 0;
+            if (send(client_sock, &ack, sizeof(ack), 0) != sizeof(ack)) {
+                printErrorAndExit(ERROR_MSG_ACK);
+                delete[] message;
+                close(client_sock);
+                return 1;
+            }
+
+            delete[] message;
+        }
+        close(client_sock);
+    }
+
+    close(mySocket);
+
+    return 0;
+}
