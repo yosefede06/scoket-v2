@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
         for (int i = 0; i < K_NUM_MESSAGES; ++i) {
             int byte_sent = send(sock, message, message_size, 0);
             if (byte_sent != message_size) {
-                cout << byte_sent;
+                cout << byte_sent << endl;
                 printErrorAndExit(ERROR_MSG_SEND);
                 return 1;
             }
