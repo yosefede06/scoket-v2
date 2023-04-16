@@ -54,6 +54,7 @@ int main() {
             for (int  i = 0; i < K_NUM_MESSAGES; ++i) {
                 int curr_recv = recv(client_sock, message, message_size, 0);
                 if (curr_recv != message_size) {
+                    std::cout << curr_recv <<std::endl;
                     printErrorAndExit(ERROR_MSG_RECV);
                     delete[] message;
                     close(client_sock);
@@ -67,13 +68,10 @@ int main() {
                 close(client_sock);
                 return 1;
             }
-
             delete[] message;
         }
         close(client_sock);
     }
-
     close(mySocket);
-
     return 0;
 }

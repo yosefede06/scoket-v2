@@ -1,0 +1,29 @@
+Exercise 1 Workshop In Communication Networks - Benchmarking Throughput
+Authors: Yosef Edery and Leon Gershko
+
+The goal of the implemented code was to measure point-to-point (unidirectional) throughput between two machines,
+for an exponential series of message sizes, ranging from 1 byte to 1MB.
+The implemented code had a server and a client component, both written in C++, that shared some code.
+The server had to be run first and the client second. The client connected to the server and sent a
+certain number of messages. After all messages had arrived, the server replied and the client calculated the
+throughput based on the time it all took.
+
+The performance results obtained from running the implemented code were as follows:
+
+Message Size (Bytes) | Throughput (Bytes/s)
+1 | 1.11508e+06
+2 | 1.95676e+06
+4 | 4.46578e+06
+8 | 8.12678e+06
+16 | 1.55415e+07
+32 | 2.66378e+07
+64 | 4.5329e+07
+128 | 1.30386e+08
+256 | 2.36796e+08
+512 | 3.76249e+08
+1024 | 6.42974e+08
+
+As can be seen from the results, the throughput increased as the message size increased, which is expected since
+larger messages can be transmitted more efficiently due to the overhead of setting up a network connection.
+The results show that the implemented code was successful in measuring the point-to-point throughput for an
+exponential series of message sizes.

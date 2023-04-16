@@ -6,8 +6,6 @@
 
 using namespace std;
 
-
-
 int main(int argc, char** argv) {
     if (argc != 2) {
         printErrorAndExit("Usage: " + (string)argv[0] + " <server-ip>");
@@ -42,7 +40,6 @@ int main(int argc, char** argv) {
         for (int i = 0; i < K_NUM_MESSAGES; ++i) {
             int byte_sent = send(sock, message, message_size, 0);
             if (byte_sent != message_size) {
-                cout << byte_sent << endl;
                 printErrorAndExit(ERROR_MSG_SEND);
                 return 1;
             }
@@ -54,7 +51,8 @@ int main(int argc, char** argv) {
         }
 
         auto end_time = std::chrono::high_resolution_clock::now();
-        double elapsed_time = std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count() / 1000000.0;
+        double elapsed_time =
+                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count() / 1000000.0;
         double throughput = K_NUM_MESSAGES * message_size / elapsed_time;
 
         cout << message_size << "\t" << throughput << "\tbytes/s\n";
