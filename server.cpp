@@ -19,6 +19,7 @@ int get_connection (int s)
     return t;
 }
 
+
 int main() {
     sockaddr_in serverAddress;
     std::memset(&serverAddress, 0, sizeof(serverAddress));
@@ -47,8 +48,8 @@ int main() {
             printErrorAndExit(ERROR_MSG_CONNECTION_FAILURE);
             continue;
         }
-
-        for (int message_size = FIRST_MESSAGE_SIZE; message_size <= MB_1; message_size *= INCREMENT_MESSAGE_FACTOR) {
+        bool warm_cycle_flag = true;
+        for (int message_size = FIRST_MESSAGE_SIZE; message_size <= MB_1;) {
             char* message = new char[message_size];
 
             for (int  i = 0; i < K_NUM_MESSAGES; ++i) {
@@ -69,6 +70,12 @@ int main() {
                 return 1;
             }
             delete[] message;
+            if(!warm_cycle_flag) {
+                message_size *= INCREMENT_MESSAGE_FACTOR;
+            }
+            else {
+                warm_cycle_flag = false;
+            }
         }
         close(client_sock);
     }

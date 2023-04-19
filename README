@@ -17,17 +17,17 @@ throughput based on the time it all took.
 The performance results obtained from running the implemented code were as follows:
 
 Message Size (Bytes) | Throughput (Bytes/s)
-1 | 1.11508e+06
-2 | 1.95676e+06
-4 | 4.46578e+06
-8 | 8.12678e+06
-16 | 1.55415e+07
-32 | 2.66378e+07
-64 | 4.5329e+07
-128 | 1.30386e+08
-256 | 2.36796e+08
-512 | 3.76249e+08
-1024 | 6.42974e+08
+1       0.20962 bytes/microseconds
+2       0.42007 bytes/microseconds
+4       0.82763 bytes/microseconds
+8       1.66698 bytes/microseconds
+16      3.32564 bytes/microseconds
+32      6.67501 bytes/microseconds
+64      13.342  bytes/microseconds
+128     26.7771 bytes/microseconds
+256     53.4838 bytes/microseconds
+512     104.317 bytes/microseconds
+1024    209.604 bytes/microseconds
 
 As can be seen from the results, the throughput increased as the message size increased, which is expected since
 larger messages can be transmitted more efficiently due to the overhead of setting up a network connection.

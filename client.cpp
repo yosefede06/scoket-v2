@@ -2,7 +2,9 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <math.h>
 #include "MACROS.h"
+#define DECIMALS_NUMBER 100000.0
 
 using namespace std;
 
@@ -32,11 +34,12 @@ int main(int argc, char** argv) {
         printErrorAndExit (ERROR_MSG_CONNECTION_FAILURE);
         return 1;
     }
-
+    //  Warm up cycles
+    bool warm_cycle_flag = true;
     char* message = new char[MB_1]; // Allocate buffer for largest message size
-    for (int message_size = FIRST_MESSAGE_SIZE; message_size <= MB_1; message_size *= INCREMENT_MESSAGE_FACTOR) {
-        auto start_time = std::chrono::high_resolution_clock::now();
+    for (int message_size = FIRST_MESSAGE_SIZE; message_size <= MB_1;) {
 
+        auto start_time = std::chrono::high_resolution_clock::now();
         for (int i = 0; i < K_NUM_MESSAGES; ++i) {
             int byte_sent = send(sock, message, message_size, 0);
             if (byte_sent != message_size) {
@@ -49,13 +52,21 @@ int main(int argc, char** argv) {
             printErrorAndExit(ERROR_MSG_ACK);
             return 1;
         }
+        if(!warm_cycle_flag) {
+            auto end_time = std::chrono::high_resolution_clock::now();
+            double elapsed_time =
+                    std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count() ;
+            double throughput = K_NUM_MESSAGES * message_size / elapsed_time;
 
-        auto end_time = std::chrono::high_resolution_clock::now();
-        double elapsed_time =
-                std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count() / 1000000.0;
-        double throughput = K_NUM_MESSAGES * message_size / elapsed_time;
+            cout << message_size << "\t" <<
+                 round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER << "\tbytes/microseconds\n";
+            message_size *= INCREMENT_MESSAGE_FACTOR;
+        }
+        else {
+            warm_cycle_flag = false;
+        }
 
-        cout << message_size << "\t" << throughput << "\tbytes/s\n";
+
     }
 
     delete[] message;
