@@ -39,8 +39,8 @@ int main(int argc, char** argv) {
 
     char* message = new char[MB_1]; // Allocate buffer for largest message size
     int message_size = FIRST_MESSAGE_SIZE;
-    double throughput_results[21] = {};
-    int i = 0;
+//    double throughput_results[21] = {};
+//    int i = 0;
     while (message_size <= MB_1) {
         chrono::high_resolution_clock::time_point start_time = std::chrono::high_resolution_clock::now();
         int total_bytes_sent = 0;
