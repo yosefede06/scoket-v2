@@ -66,7 +66,9 @@ int main(int argc, char** argv) {
             double throughput = K_NUM_MESSAGES * message_size / elapsed_time;
             double rounded_throughput = round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER;
 //            cout << round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER << ", ";
+
             cout << message_size << "\t" << rounded_throughput << "\tbytes/microseconds\n";
+            cout << std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count();
             message_size *= INCREMENT_MESSAGE_FACTOR;
             throughput_results[i++] = rounded_throughput;
 
