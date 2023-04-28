@@ -68,7 +68,6 @@ int main(int argc, char** argv) {
 //            cout << round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER << ", ";
 
             cout << message_size << "\t" << rounded_throughput << "\tbytes/microseconds\n";
-            cout << std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count();
             message_size *= INCREMENT_MESSAGE_FACTOR;
             throughput_results[i++] = rounded_throughput;
 

@@ -17,18 +17,27 @@ throughput based on the time it all took.
 The performance results obtained from running the implemented code were as follows:
 
 Message Size (Bytes) | Throughput (Bytes/s)
-1       0.20962 bytes/microseconds
-2       0.42007 bytes/microseconds
-4       0.82763 bytes/microseconds
-8       1.66698 bytes/microseconds
-16      3.32564 bytes/microseconds
-32      6.67501 bytes/microseconds
-64      13.342  bytes/microseconds
-128     26.7771 bytes/microseconds
-256     53.4838 bytes/microseconds
-512     104.317 bytes/microseconds
-1024    209.604 bytes/microseconds
-
+1	    0.47755	bytes/microseconds
+2	    0.04759	bytes/microseconds
+4	    0.09436	bytes/microseconds
+8	    3.90625	bytes/microseconds
+16	    8.85936	bytes/microseconds
+32	    17.4863	bytes/microseconds
+64	    36.7394	bytes/microseconds
+128	    64.5161	bytes/microseconds
+256	    102.482	bytes/microseconds
+512	    110.703	bytes/microseconds
+1024	114.044	bytes/microseconds
+2048	116.212	bytes/microseconds
+4096	117.012	bytes/microseconds
+8192	117.278	bytes/microseconds
+16384	117.451	bytes/microseconds
+32768	117.574	bytes/microseconds
+65536	117.6	bytes/microseconds
+131072	117.642	bytes/microseconds
+262144	117.637	bytes/microseconds
+524288	117.675	bytes/microseconds
+1048576	117.677	bytes/microseconds
 As can be seen from the results, the throughput increased as the message size increased, which is expected since
 larger messages can be transmitted more efficiently.
 The results show that the implemented code was successful in measuring the point-to-point throughput for an
