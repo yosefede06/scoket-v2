@@ -30,6 +30,6 @@ Message Size (Bytes) | Throughput (Bytes/s)
 1024    209.604 bytes/microseconds
 
 As can be seen from the results, the throughput increased as the message size increased, which is expected since
-larger messages can be transmitted more efficiently due to the overhead of setting up a network connection.
+larger messages can be transmitted more efficiently.
 The results show that the implemented code was successful in measuring the point-to-point throughput for an
 exponential series of message sizes.

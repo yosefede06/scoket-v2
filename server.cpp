@@ -49,19 +49,19 @@ int main() {
             continue;
         }
         bool warm_cycle_flag = true;
-        for (int message_size = FIRST_MESSAGE_SIZE; message_size <= MB_1;) {
+        int message_size = FIRST_MESSAGE_SIZE;
+        while (message_size <= MB_1) {
             char* message = new char[message_size];
-
-            for (int  i = 0; i < K_NUM_MESSAGES; ++i) {
-                int curr_recv = recv(client_sock, message, message_size, 0);
-                if (curr_recv != message_size) {
-                    std::cout << curr_recv <<std::endl;
-                    printErrorAndExit(ERROR_MSG_RECV);
-                    delete[] message;
-                    close(client_sock);
-                    return 1;
+            int curr_recv = 0;
+            std::cout << message_size * K_NUM_MESSAGES << std::endl;
+            while (curr_recv < message_size * K_NUM_MESSAGES) {
+                int bytes_recv = recv(client_sock, message, message_size, 0);
+                if (bytes_recv == -1) {
+                    continue;
                 }
+                curr_recv += bytes_recv;
             }
+            std::cout << curr_recv / K_NUM_MESSAGES << std::endl;
             char ack = 0;
             if (send(client_sock, &ack, sizeof(ack), 0) != sizeof(ack)) {
                 printErrorAndExit(ERROR_MSG_ACK);
@@ -78,7 +78,8 @@ int main() {
             }
         }
         close(client_sock);
+        close(mySocket);
+        return 0;
     }
-    close(mySocket);
-    return 0;
+
 }
