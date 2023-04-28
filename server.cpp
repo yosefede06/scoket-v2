@@ -56,7 +56,11 @@ int main() {
             while (curr_recv < message_size * K_NUM_MESSAGES) {
                 int bytes_recv = recv(client_sock, message, message_size, 0);
                 if (bytes_recv == -1) {
-                    continue;
+                    printErrorAndExit(ERROR_MSG_RECV);
+                    delete[] message;
+                    close(client_sock);
+                    close(mySocket);
+                    return 1;
                 }
                 curr_recv += bytes_recv;
             }
@@ -65,6 +69,7 @@ int main() {
                 printErrorAndExit(ERROR_MSG_ACK);
                 delete[] message;
                 close(client_sock);
+                close(mySocket);
                 return 1;
 
             }

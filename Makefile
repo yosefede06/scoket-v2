@@ -4,9 +4,7 @@ all: client server
 TAR=tar
 TARFLAGS=-cvf
 TARNAME=345175475_207603846.tgz
-TARSRCS=$(SRC) Makefile README Results.pdf server.cpp client.cpp
-
-
+TARSRCS=$(SRC) Makefile README Results.pdf MACROS.h server.cpp client.cpp
 
 server: server.cpp
 	g++ -Wall server.cpp -o server

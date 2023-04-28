@@ -20,10 +20,6 @@ int main(int argc, char** argv) {
         printErrorAndExit(ERROR_MSG_SOCKET_CREATION);
         return 1;
     }
-
-    double throughput_results[21] = {};
-    int i = 0;
-
     sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(DEFAULT_PORT);
@@ -43,6 +39,8 @@ int main(int argc, char** argv) {
 
     char* message = new char[MB_1]; // Allocate buffer for largest message size
     int message_size = FIRST_MESSAGE_SIZE;
+    double throughput_results[21] = {};
+    int i = 0;
     while (message_size <= MB_1) {
         chrono::high_resolution_clock::time_point start_time = std::chrono::high_resolution_clock::now();
         int total_bytes_sent = 0;
@@ -65,17 +63,27 @@ int main(int argc, char** argv) {
                     (end_time - start_time).count() ;
             double throughput = K_NUM_MESSAGES * message_size / elapsed_time;
             double rounded_throughput = round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER;
-//            cout << round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER << ", ";
-
             cout << message_size << "\t" << rounded_throughput << "\tbytes/microseconds\n";
             message_size *= INCREMENT_MESSAGE_FACTOR;
             throughput_results[i++] = rounded_throughput;
-
         }
         else {
             warm_cycle_flag = false;
         }
     }
+//    write_throughput_results();
+
+    delete[] message;
+    close(sock);
+    return 0;
+}
+
+/**
+ * For tests purposes, in order to plot throughput.
+ * @param throughput_results
+ * @return
+ */
+int throughput_results (int * throughput_results) {
     std::ofstream file("throughput_results.txt");
     for (int j = 0; j < 21; j++) {
         // Check if the file was opened successfully
@@ -87,10 +95,5 @@ int main(int argc, char** argv) {
         // Write "hello" to the file
         file << throughput_results[j] << endl;
     }
-    delete[] message;
-    close(sock);
-
-
-
     return 0;
 }
