@@ -53,7 +53,6 @@ int main() {
         while (message_size <= MB_1) {
             char* message = new char[message_size];
             int curr_recv = 0;
-            std::cout << message_size * K_NUM_MESSAGES << std::endl;
             while (curr_recv < message_size * K_NUM_MESSAGES) {
                 int bytes_recv = recv(client_sock, message, message_size, 0);
                 if (bytes_recv == -1) {
@@ -61,7 +60,6 @@ int main() {
                 }
                 curr_recv += bytes_recv;
             }
-            std::cout << curr_recv / K_NUM_MESSAGES << std::endl;
             char ack = 0;
             if (send(client_sock, &ack, sizeof(ack), 0) != sizeof(ack)) {
                 printErrorAndExit(ERROR_MSG_ACK);
