@@ -66,6 +66,7 @@ int main() {
                 delete[] message;
                 close(client_sock);
                 return 1;
+
             }
             delete[] message;
             if(!warm_cycle_flag) {
