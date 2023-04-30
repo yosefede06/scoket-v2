@@ -51,6 +51,7 @@ int main() {
             continue;
         }
 
+
         bool warm_cycle_flag = true;
         int message_size = FIRST_MESSAGE_SIZE;
         while (message_size <= MB_1) {
