@@ -48,6 +48,7 @@ int main(int argc, char** argv) {
                 printErrorAndExit(ERROR_MSG_SEND);
                 return 1;
             }
+
             total_bytes_sent += byte_sent;
         }
         char ack;
