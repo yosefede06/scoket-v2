@@ -52,6 +52,7 @@ int main() {
         for (int message_size = FIRST_MESSAGE_SIZE; message_size <= MB_1;) {
             char* message = new char[message_size];
 
+
             for (int  i = 0; i < K_NUM_MESSAGES; ++i) {
                 int curr_recv = recv(client_sock, message, message_size, 0);
                 if (curr_recv != message_size) {

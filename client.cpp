@@ -20,6 +20,7 @@ int main(int argc, char** argv) {
         printErrorAndExit(ERROR_MSG_SOCKET_CREATION);
         return 1;
     }
+    
 
 
     sockaddr_in server_addr;
