@@ -29,6 +29,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+
     if (connect(sock, (sockaddr*) &server_addr, sizeof(server_addr)) < 0) {
         printErrorAndExit (ERROR_MSG_CONNECTION_FAILURE);
         return 1;
