@@ -20,7 +20,6 @@ int get_connection (int s)
 }
 
 
-
 int main() {
     sockaddr_in serverAddress;
     std::memset(&serverAddress, 0, sizeof(serverAddress));

@@ -69,8 +69,6 @@ int main(int argc, char** argv) {
             warm_cycle_flag = false;
         }
     }
-
-
     delete[] message;
     close(sock);
     return 0;
