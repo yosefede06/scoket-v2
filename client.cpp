@@ -70,6 +70,7 @@ int main(int argc, char** argv) {
         }
     }
 
+
     delete[] message;
     close(sock);
     return 0;
