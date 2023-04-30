@@ -10,6 +10,8 @@
 
 using namespace std;
 
+
+
 int main(int argc, char** argv) {
     if (argc != 2) {
         printErrorAndExit("Usage: " + (string)argv[0] + " <server-ip>");
@@ -65,7 +67,6 @@ int main(int argc, char** argv) {
             << "\tbytes/microseconds\n";
             message_size *= INCREMENT_MESSAGE_FACTOR;
         }
-
         else {
             warm_cycle_flag = false;
         }
