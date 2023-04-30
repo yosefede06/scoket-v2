@@ -29,13 +29,13 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-
     if (connect(sock, (sockaddr*) &server_addr, sizeof(server_addr)) < 0) {
         printErrorAndExit (ERROR_MSG_CONNECTION_FAILURE);
         return 1;
     }
     //  Warm up cycles
     bool warm_cycle_flag = true;
+
 
     char* message = new char[MB_1]; // Allocate buffer for largest message size
     int message_size = FIRST_MESSAGE_SIZE;
