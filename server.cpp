@@ -10,7 +10,6 @@
 #define ERROR_MSG_ACCEPT_FAILURE "Socket accept error"
 #define MAX_CLIENTS_LISTENED 1
 
-
 int get_connection (int s)
 {
     int t = accept (s, NULL, NULL); /* socket of connection */
