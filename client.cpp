@@ -21,12 +21,6 @@ int main(int argc, char** argv) {
         printErrorAndExit(ERROR_MSG_SOCKET_CREATION);
         return 1;
     }
-<<<<<<< HEAD
-    
-
-
-=======
->>>>>>> origin/main
     sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(DEFAULT_PORT);

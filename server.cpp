@@ -49,24 +49,14 @@ int main() {
             printErrorAndExit(ERROR_MSG_CONNECTION_FAILURE);
             continue;
         }
-        
         bool warm_cycle_flag = true;
         int message_size = FIRST_MESSAGE_SIZE;
         while (message_size <= MB_1) {
             char* message = new char[message_size];
-<<<<<<< HEAD
-
-
-            for (int  i = 0; i < K_NUM_MESSAGES; ++i) {
-                int curr_recv = recv(client_sock, message, message_size, 0);
-                if (curr_recv != message_size) {
-                    std::cout << curr_recv <<std::endl;
-=======
             long int curr_recv = 0;
             while (curr_recv < message_size * K_NUM_MESSAGES) {
                 int bytes_recv = recv(client_sock, message, message_size, 0);
                 if (bytes_recv == -1) {
->>>>>>> origin/main
                     printErrorAndExit(ERROR_MSG_RECV);
                     delete[] message;
                     close(client_sock);
