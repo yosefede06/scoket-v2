@@ -43,6 +43,7 @@ int main() {
     }
 
     while (true) {
+
         int client_sock = get_connection(mySocket);
         if (client_sock == -1) {
             printErrorAndExit(ERROR_MSG_CONNECTION_FAILURE);

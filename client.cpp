@@ -55,6 +55,7 @@ int main(int argc, char** argv) {
             printErrorAndExit(ERROR_MSG_ACK);
             return 1;
         }
+
         if(!warm_cycle_flag) {
             chrono::high_resolution_clock::time_point  end_time = std::chrono::high_resolution_clock::now();
             double elapsed_time = std::chrono::duration_cast<std::chrono::microseconds>
