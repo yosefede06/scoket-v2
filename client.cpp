@@ -5,9 +5,10 @@
 #include <math.h>
 #include <fstream>
 #include "MACROS.h"
-#define DECIMALS_NUMBER 1000000.0
+#define DECIMALS_NUMBER 100000.0
 
 using namespace std;
+
 
 int main(int argc, char** argv) {
     if (argc != 2) {
