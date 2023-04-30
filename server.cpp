@@ -10,8 +10,6 @@
 #define ERROR_MSG_ACCEPT_FAILURE "Socket accept error"
 #define MAX_CLIENTS_LISTENED 1
 
-
-
 int get_connection (int s)
 {
     int t = accept (s, NULL, NULL); /* socket of connection */
@@ -50,14 +48,13 @@ int main() {
             printErrorAndExit(ERROR_MSG_CONNECTION_FAILURE);
             continue;
         }
-
         bool warm_cycle_flag = true;
         int message_size = FIRST_MESSAGE_SIZE;
         while (message_size <= MB_1) {
             char* message = new char[message_size];
-            long int curr_recv = 0;
+            int curr_recv = 0;
             while (curr_recv < message_size * K_NUM_MESSAGES) {
-                long int bytes_recv = recv(client_sock, message, message_size, 0);
+                int bytes_recv = recv(client_sock, message, message_size, 0);
                 if (bytes_recv == -1) {
                     printErrorAndExit(ERROR_MSG_RECV);
                     delete[] message;
@@ -90,4 +87,3 @@ int main() {
     }
 
 }
-

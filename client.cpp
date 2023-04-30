@@ -5,10 +5,9 @@
 #include <math.h>
 #include <fstream>
 #include "MACROS.h"
-#define DECIMALS_NUMBER 10000.0
+#define DECIMALS_NUMBER 100000.0
 
 using namespace std;
-
 
 int main(int argc, char** argv) {
     if (argc != 2) {
@@ -37,18 +36,19 @@ int main(int argc, char** argv) {
     //  Warm up cycles
     bool warm_cycle_flag = true;
 
+
     char* message = new char[MB_1]; // Allocate buffer for largest message size
     int message_size = FIRST_MESSAGE_SIZE;
+
     while (message_size <= MB_1) {
         chrono::high_resolution_clock::time_point start_time = std::chrono::high_resolution_clock::now();
-        long int total_bytes_sent = 0;
+        int total_bytes_sent = 0;
         while (total_bytes_sent < message_size * K_NUM_MESSAGES) {
-            long int byte_sent = send(sock, message, message_size, 0);
+            int byte_sent = send(sock, message, message_size, 0);
             if (byte_sent != message_size) {
                 printErrorAndExit(ERROR_MSG_SEND);
                 return 1;
             }
-
             total_bytes_sent += byte_sent;
         }
         char ack;
@@ -57,7 +57,6 @@ int main(int argc, char** argv) {
             return 1;
         }
         if(!warm_cycle_flag) {
-
             chrono::high_resolution_clock::time_point  end_time = std::chrono::high_resolution_clock::now();
             double elapsed_time = std::chrono::duration_cast<std::chrono::microseconds>
                     (end_time - start_time).count() ;
@@ -70,6 +69,7 @@ int main(int argc, char** argv) {
             warm_cycle_flag = false;
         }
     }
+
     delete[] message;
     close(sock);
     return 0;
