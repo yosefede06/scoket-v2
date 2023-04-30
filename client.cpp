@@ -56,6 +56,7 @@ int main(int argc, char** argv) {
             printErrorAndExit(ERROR_MSG_ACK);
             return 1;
         }
+
         gettimeofday(&end, nullptr);
         if(!warm_cycle_flag) {
             long elapsed_time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
