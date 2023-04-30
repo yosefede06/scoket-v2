@@ -20,7 +20,6 @@ int get_connection (int s)
 }
 
 
-
 int main() {
     sockaddr_in serverAddress;
     std::memset(&serverAddress, 0, sizeof(serverAddress));
@@ -65,8 +64,6 @@ int main() {
                 }
                 curr_recv += bytes_recv;
             }
-
-
             char ack = 0;
             if (send(client_sock, &ack, sizeof(ack), 0) != sizeof(ack)) {
                 printErrorAndExit(ERROR_MSG_ACK);
