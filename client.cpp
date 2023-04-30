@@ -39,10 +39,9 @@ int main(int argc, char** argv) {
 
     char* message = new char[MB_1]; // Allocate buffer for largest message size
     int message_size = FIRST_MESSAGE_SIZE;
-
     while (message_size <= MB_1) {
         chrono::high_resolution_clock::time_point start_time = std::chrono::high_resolution_clock::now();
-        int total_bytes_sent = 0;
+        long int total_bytes_sent = 0;
         while (total_bytes_sent < message_size * K_NUM_MESSAGES) {
             int byte_sent = send(sock, message, message_size, 0);
             if (byte_sent != message_size) {
@@ -51,6 +50,7 @@ int main(int argc, char** argv) {
             }
             total_bytes_sent += byte_sent;
         }
+
         char ack;
         if (recv(sock, &ack, sizeof(ack), 0) != sizeof(ack)) {
             printErrorAndExit(ERROR_MSG_ACK);
@@ -69,7 +69,6 @@ int main(int argc, char** argv) {
             warm_cycle_flag = false;
         }
     }
-
     delete[] message;
     close(sock);
     return 0;
