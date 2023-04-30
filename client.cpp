@@ -7,7 +7,6 @@
 #include "MACROS.h"
 #define DECIMALS_NUMBER 10000.0
 
-
 using namespace std;
 
 
@@ -44,7 +43,7 @@ int main(int argc, char** argv) {
         chrono::high_resolution_clock::time_point start_time = std::chrono::high_resolution_clock::now();
         long int total_bytes_sent = 0;
         while (total_bytes_sent < message_size * K_NUM_MESSAGES) {
-            int byte_sent = send(sock, message, message_size, 0);
+            long int byte_sent = send(sock, message, message_size, 0);
             if (byte_sent != message_size) {
                 printErrorAndExit(ERROR_MSG_SEND);
                 return 1;
