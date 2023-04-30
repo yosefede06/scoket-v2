@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/untitled.dir/client.cpp.o CMakeFiles/untitled.dir/server.cpp.o -o untitled 
