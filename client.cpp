@@ -60,11 +60,11 @@ int main(int argc, char** argv) {
         if(!warm_cycle_flag) {
             long elapsed_time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
             double throughput = K_NUM_MESSAGES * message_size / elapsed_time;
-            cout << round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER << std::endl;
-//            cout << message_size << "\t" << round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER
-//            << "\tbytes/microseconds\n";
+            cout << message_size << "\t" << round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER
+            << "\tbytes/microseconds\n";
             message_size *= INCREMENT_MESSAGE_FACTOR;
         }
+
         else {
             warm_cycle_flag = false;
         }

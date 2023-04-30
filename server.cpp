@@ -68,6 +68,7 @@ int main() {
                 }
                 curr_recv += bytes_recv;
             }
+
             char ack = 0;
             if (send(client_sock, &ack, sizeof(ack), 0) != sizeof(ack)) {
                 printErrorAndExit(ERROR_MSG_ACK);
