@@ -21,6 +21,7 @@ int main(int argc, char** argv) {
         return 1;
     }
 
+
     sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(DEFAULT_PORT);

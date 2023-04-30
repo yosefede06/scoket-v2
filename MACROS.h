@@ -16,6 +16,7 @@
 #define DEFAULT_PORT 8081
 
 
+
 void printErrorAndExit (std::string errorMsg)
 {
     std::cerr << SYSTEM_ERROR << errorMsg << std::endl;
