@@ -1,11 +1,10 @@
 Exercise 1 Workshop In Communication Networks - Benchmarking Throughput
 Authors: Yosef Edery and Leon Gershko
 
-To use on linux
-Open terminal and run following lines:
-make
-server
-client 127.0.0.1
+To use on linux, open terminal and run following lines:
+>> make
+>> server
+>> client 127.0.0.1
 
 The goal of the implemented code was to measure point-to-point (unidirectional) throughput between two machines,
 for an exponential series of message sizes, ranging from 1 byte to 1MB.
@@ -13,23 +12,3 @@ The implemented code had a server and a client component, both written in C++, t
 The server had to be run first and the client second. The client connected to the server and sent a
 certain number of messages. After all messages had arrived, the server replied and the client calculated the
 throughput based on the time it all took.
-
-The performance results obtained from running the implemented code were as follows:
-
-Message Size (Bytes) | Throughput (Bytes/s)
-1       0.20962 bytes/microseconds
-2       0.42007 bytes/microseconds
-4       0.82763 bytes/microseconds
-8       1.66698 bytes/microseconds
-16      3.32564 bytes/microseconds
-32      6.67501 bytes/microseconds
-64      13.342  bytes/microseconds
-128     26.7771 bytes/microseconds
-256     53.4838 bytes/microseconds
-512     104.317 bytes/microseconds
-1024    209.604 bytes/microseconds
-
-As can be seen from the results, the throughput increased as the message size increased, which is expected since
-larger messages can be transmitted more efficiently due to the overhead of setting up a network connection.
-The results show that the implemented code was successful in measuring the point-to-point throughput for an
-exponential series of message sizes.

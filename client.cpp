@@ -3,6 +3,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <math.h>
+#include <fstream>
 #include "MACROS.h"
 #define DECIMALS_NUMBER 100000.0
 
@@ -14,16 +15,18 @@ int main(int argc, char** argv) {
         printErrorAndExit("Usage: " + (string)argv[0] + " <server-ip>");
         return 1;
     }
-
     const char* server_ip = argv[1];
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock == -1) {
         printErrorAndExit(ERROR_MSG_SOCKET_CREATION);
         return 1;
     }
+<<<<<<< HEAD
     
 
 
+=======
+>>>>>>> origin/main
     sockaddr_in server_addr;
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(DEFAULT_PORT);
@@ -39,16 +42,19 @@ int main(int argc, char** argv) {
     }
     //  Warm up cycles
     bool warm_cycle_flag = true;
-    char* message = new char[MB_1]; // Allocate buffer for largest message size
-    for (int message_size = FIRST_MESSAGE_SIZE; message_size <= MB_1;) {
 
-        auto start_time = std::chrono::high_resolution_clock::now();
-        for (int i = 0; i < K_NUM_MESSAGES; ++i) {
+    char* message = new char[MB_1]; // Allocate buffer for largest message size
+    int message_size = FIRST_MESSAGE_SIZE;
+    while (message_size <= MB_1) {
+        chrono::high_resolution_clock::time_point start_time = std::chrono::high_resolution_clock::now();
+        long int total_bytes_sent = 0;
+        while (total_bytes_sent < message_size * K_NUM_MESSAGES) {
             int byte_sent = send(sock, message, message_size, 0);
             if (byte_sent != message_size) {
                 printErrorAndExit(ERROR_MSG_SEND);
                 return 1;
             }
+            total_bytes_sent += byte_sent;
         }
         char ack;
         if (recv(sock, &ack, sizeof(ack), 0) != sizeof(ack)) {
@@ -56,24 +62,19 @@ int main(int argc, char** argv) {
             return 1;
         }
         if(!warm_cycle_flag) {
-            auto end_time = std::chrono::high_resolution_clock::now();
-            double elapsed_time =
-                    std::chrono::duration_cast<std::chrono::microseconds>(end_time - start_time).count() ;
+            chrono::high_resolution_clock::time_point  end_time = std::chrono::high_resolution_clock::now();
+            double elapsed_time = std::chrono::duration_cast<std::chrono::microseconds>
+                    (end_time - start_time).count() ;
             double throughput = K_NUM_MESSAGES * message_size / elapsed_time;
-
-            cout << message_size << "\t" <<
-                 round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER << "\tbytes/microseconds\n";
+            double rounded_throughput = round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER;
+            cout << message_size << "\t" << rounded_throughput << "\tbytes/microseconds\n";
             message_size *= INCREMENT_MESSAGE_FACTOR;
         }
         else {
             warm_cycle_flag = false;
         }
-
-
     }
-
     delete[] message;
     close(sock);
-
     return 0;
 }
