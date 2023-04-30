@@ -7,7 +7,6 @@
 #define DECIMALS_NUMBER 100000.0
 using namespace std;
 
-
 int main(int argc, char** argv) {
     if (argc != 2) {
         printErrorAndExit("Usage: " + (string)argv[0] + " <server-ip>");
