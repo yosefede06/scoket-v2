@@ -5,7 +5,7 @@
 #include <math.h>
 #include <fstream>
 #include "MACROS.h"
-#define DECIMALS_NUMBER 100000.0
+#define DECIMALS_NUMBER 10000.0
 
 
 using namespace std;
