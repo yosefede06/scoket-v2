@@ -3,6 +3,7 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <math.h>
+#include <sys/time.h>
 #include <fstream>
 #include "MACROS.h"
 #define DECIMALS_NUMBER 100000.0
@@ -35,12 +36,12 @@ int main(int argc, char** argv) {
     }
     //  Warm up cycles
     bool warm_cycle_flag = true;
-
+    struct timeval start, end;
 
     char* message = new char[MB_1]; // Allocate buffer for largest message size
     int message_size = FIRST_MESSAGE_SIZE;
     while (message_size <= MB_1) {
-        chrono::high_resolution_clock::time_point start_time = std::chrono::high_resolution_clock::now();
+        gettimeofday(&start, nullptr);
         long int total_bytes_sent = 0;
         while (total_bytes_sent < message_size * K_NUM_MESSAGES) {
             long int byte_sent = send(sock, message, message_size, 0);
@@ -57,12 +58,11 @@ int main(int argc, char** argv) {
         }
 
         if(!warm_cycle_flag) {
-            chrono::high_resolution_clock::time_point  end_time = std::chrono::high_resolution_clock::now();
-            double elapsed_time = std::chrono::duration_cast<std::chrono::microseconds>
-                    (end_time - start_time).count() ;
+            gettimeofday(&end, nullptr);
+            long elapsed_time = (end.tv_sec - start.tv_sec) * 1000000 + (end.tv_usec - start.tv_usec);
             double throughput = K_NUM_MESSAGES * message_size / elapsed_time;
-            double rounded_throughput = round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER;
-            cout << message_size << "\t" << rounded_throughput << "\tbytes/microseconds\n";
+//            double rounded_throughput = round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER;
+            cout << message_size << "\t" << throughput << "\tbytes/microseconds\n";
             message_size *= INCREMENT_MESSAGE_FACTOR;
 
         }
