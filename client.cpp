@@ -7,6 +7,7 @@
 #include "MACROS.h"
 #define DECIMALS_NUMBER 100000.0
 
+
 using namespace std;
 
 
