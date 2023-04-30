@@ -39,7 +39,6 @@ int main(int argc, char** argv) {
 
     char* message = new char[MB_1]; // Allocate buffer for largest message size
     int message_size = FIRST_MESSAGE_SIZE;
-
     while (message_size <= MB_1) {
         chrono::high_resolution_clock::time_point start_time = std::chrono::high_resolution_clock::now();
         long int total_bytes_sent = 0;
@@ -64,12 +63,12 @@ int main(int argc, char** argv) {
             double rounded_throughput = round(throughput * DECIMALS_NUMBER) / DECIMALS_NUMBER;
             cout << message_size << "\t" << rounded_throughput << "\tbytes/microseconds\n";
             message_size *= INCREMENT_MESSAGE_FACTOR;
+
         }
         else {
             warm_cycle_flag = false;
         }
     }
-
     delete[] message;
     close(sock);
     return 0;
