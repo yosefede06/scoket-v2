@@ -36,7 +36,6 @@ int main(int argc, char** argv) {
     //  Warm up cycles
     bool warm_cycle_flag = true;
 
-
     char* message = new char[MB_1]; // Allocate buffer for largest message size
     int message_size = FIRST_MESSAGE_SIZE;
 
