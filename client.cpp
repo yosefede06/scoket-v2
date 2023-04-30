@@ -5,7 +5,7 @@
 #include <math.h>
 #include <fstream>
 #include "MACROS.h"
-#define DECIMALS_NUMBER 100000.0
+#define DECIMALS_NUMBER 1000.0
 
 using namespace std;
 
@@ -42,7 +42,7 @@ int main(int argc, char** argv) {
     int message_size = FIRST_MESSAGE_SIZE;
     while (message_size <= MB_1) {
         chrono::high_resolution_clock::time_point start_time = std::chrono::high_resolution_clock::now();
-        long int total_bytes_sent = 0;
+        int total_bytes_sent = 0;
         while (total_bytes_sent < message_size * K_NUM_MESSAGES) {
             int byte_sent = send(sock, message, message_size, 0);
             if (byte_sent != message_size) {
