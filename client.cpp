@@ -51,6 +51,7 @@ int main(int argc, char** argv) {
             total_bytes_sent += byte_sent;
         }
 
+
         char ack;
         if (recv(sock, &ack, sizeof(ack), 0) != sizeof(ack)) {
             printErrorAndExit(ERROR_MSG_ACK);
