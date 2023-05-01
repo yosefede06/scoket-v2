@@ -12,6 +12,7 @@
 #define FIRST_MESSAGE_SIZE 1
 #define INCREMENT_MESSAGE_FACTOR 2
 #define MB_1 1024 * 1024
+// We've chose 1000 messages since it takes around
 #define K_NUM_MESSAGES 1000.L
 #define DEFAULT_PORT 8081
 
