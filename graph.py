@@ -1,20 +1,37 @@
 import pandas as pd
 import plotly.express as px
-import plotly.io as pio
-pio.templates.default = "simple_white"
+t=[0.52247,
+   0.04807	,
+   2.01005	,
+   4.66472	,
+   8.51064	,
+   17.6503	,
+   34.0788	,
+   62.3174	,
+   95.7009	,
+   106.644	,
+   112.626	,
+   116.047	,
+   116.885	,
+   117.097	,
+
+   117.471	,
+   117.539	,
+   117.596	,
+   117.64	,
+   117.643	,
+   117.665	, 117.681]
 s = []
 a = 1
-for i in range(21):
+for line in range(21):
     s.append(a)
+    # t.append(line.strip())
     a = 2 * a
-t = [0.4662, 1.05988, 2.03459, 4.0568, 7.54006, 15.4366, 26.6223,
-     71.3489, 143.017, 260.163, 377.164, 663.427, 1220.5, 1730.83,
-     2289.23, 4292.38, 6805.4, 11636.4, 13906.8, 12860.9, 11622.2]
-
 d = {'message_size': s, 'throughput': t}
 df = pd.DataFrame(data=d)
 fig = px.line(pd.DataFrame({'x': df['message_size'], 'y':  df['throughput']}), x="x", y="y",
-              title=f"point-to-point (unidirectional) throughput",
-              labels={"x": f"Message size (bytes)", "y": "Throughput (bytes/microseconds)"})
+              title=f"Point-To-Point (Unidirectional) Throughput Over 1,000 Messages Per Size",
+              labels={"x": f"Message size (Bytes)", "y": "Throughput (Bytes/Microseconds)"})
 fig.update_traces(mode='markers+lines')
 fig.show()
+

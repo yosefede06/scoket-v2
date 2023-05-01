@@ -49,8 +49,6 @@ int main() {
             printErrorAndExit(ERROR_MSG_CONNECTION_FAILURE);
             continue;
         }
-
-
         bool warm_cycle_flag = true;
         int message_size = FIRST_MESSAGE_SIZE;
         while (message_size <= MB_1) {
