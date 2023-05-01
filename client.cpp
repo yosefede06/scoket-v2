@@ -31,7 +31,12 @@ int main(int argc, char** argv) {
         printErrorAndExit (ERROR_MSG_CONNECTION_FAILURE);
         return 1;
     }
-    //  Warm up cycles
+    /**
+     *
+     The amount of warm-up cycles is going to be 1 byte sent per K_NUM_MESSAGES. This means that before the actual
+     measurement of network performance, a certain number of messages (K_NUM_MESSAGES) will be sent, each containing
+     only one byte of data, to allow the system to warm up and stabilize
+     */
     bool warm_cycle_flag = true;
     struct timeval start, end;
 
@@ -40,6 +45,7 @@ int main(int argc, char** argv) {
     while (message_size <= MB_1) {
         gettimeofday(&start, nullptr);
         long int total_bytes_sent = 0;
+
         while (total_bytes_sent < message_size * K_NUM_MESSAGES) {
             long int byte_sent = send(sock, message, message_size, 0);
             if (byte_sent != message_size) {
