@@ -1,16 +1,34 @@
+# List of source files
+SRC = server.cpp client.cpp
+
+# Name of the tarball file
+TARNAME = 345175475_207603846.tgz
+
+# Tar command
+TAR = tar
+TARFLAGS = -cvf
+
+# Targets
+.PHONY: all clean tar
+
+# Default target
 default: all
+
+# Target to build everything
 all: client server
 
-TAR=tar
-TARFLAGS=-cvf
-TARNAME=345175475_207603846.tgz
-TARSRCS=$(SRC) Makefile README Results.pdf MACROS.h server.cpp client.cpp
-
+# Target to build the server
 server: server.cpp
-	g++ -Wall server.cpp -o server
+	g++ -Wall -o server server.cpp
 
+# Target to build the client
 client: client.cpp
-	g++ -Wall client.cpp -o client
+	g++ -Wall -o client client.cpp
 
+# Target to create a tarball of the source files
 tar:
-	$(TAR) $(TARFLAGS) $(TARNAME) $(TARSRCS)
+	$(TAR) $(TARFLAGS) $(TARNAME) $(SRC) Makefile README Results.pdf MACROS.h
+
+# Target to clean up object files and executables
+clean:
+	rm -f server client *.o $(TARNAME)
